@@ -1,0 +1,61 @@
+student_id,name,email,gpa,major,age,zip,attendance_pct,adviser_notes
+STU-2026-00022,Diego Chen,diego.chen@university.edu,3.73,Orchard Management,20,92070,92,No concerns. Diego Chen is on track in Orchard Management.
+STU-2026-00026,Omar Garcia,omar.garcia@university.edu,2.81,Tea Sciences,19,60796,66,Omar Garcia requested accommodation; see adviser.
+STU-2026-00010,Zoe Smith,zoe.smith@university.edu,3.97,Orchard Management,25,14511,70,Zoe Smith requested accommodation; see adviser.
+STU-2026-00021,Priya Chen,priya.chen@university.edu,2.93,Map Arts,23,35789,90,No concerns. Priya Chen is on track in Map Arts.
+STU-2026-00003,Priya Chen,priya.chen@university.edu,2.62,Weather Studies,19,50033,63,Priya Chen requested accommodation; see adviser.
+STU-2026-00006,Zoe Nguyen,zoe.nguyen@university.edu,2.30,Clockmaking,23,67240,87,Zoe Nguyen requested accommodation; see adviser.
+STU-2026-00006,Zoe Nguyen,zoe.nguyen@university.edu,3.03,Puzzle Design,23,19734,90,No concerns. Zoe Nguyen is on track in Puzzle Design.
+STU-2026-00024,Kenji Silva,kenji.silva@university.edu,2.44,Puzzle Design,21,47786,61,Kenji Silva will intern next term; contact kenji.silva@university.edu.
+STU-2026-00025,Noah Chen,noah.chen@university.edu,2.81,Clockmaking,24,72589,76,No concerns. Noah Chen is on track in Clockmaking.
+STU-2026-00024,Kenji Silva,kenji.silva@university.edu,3.94,Map Arts,24,85075,60,Student Kenji Silva asked about switching to Map Arts; follow up by email kenji.silva@university.edu.
+STU-2026-00009,Omar Okafor,omar.okafor@university.edu,3.76,Kite Studies,22,56262,96,Met with Omar Okafor (ID STU-2026-00009); discussed GPA concerns.
+STU-2026-00028,Noah Smith,noah.smith@university.edu,3.46,Map Arts,20,17077,76,No concerns. Noah Smith is on track in Map Arts.
+STU-2026-00008,Zoe Smith,zoe.smith@university.edu,2.86,Puzzle Design,21,79719,77,Student Zoe Smith asked about switching to Puzzle Design; follow up by email zoe.smith@university.edu.
+STU-2026-00011,Diego Kim,diego.kim@university.edu,2.01,Orchard Management,21,19211,72,Diego Kim requested accommodation; see adviser.
+STU-2026-00023,Priya Smith,priya.smith@university.edu,3.61,Tea Sciences,18,14687,94,Student Priya Smith asked about switching to Tea Sciences; follow up by email priya.smith@university.edu.
+STU-2026-00012,Omar Chen,omar.chen@university.edu,3.05,Kite Studies,23,54681,78,Met with Omar Chen (ID STU-2026-00012); discussed GPA concerns.
+STU-2026-00025,Noah Chen,noah.chen@university.edu,2.20,Puzzle Design,22,36759,95,Student Noah Chen asked about switching to Puzzle Design; follow up by email noah.chen@university.edu.
+STU-2026-00023,Priya Smith,priya.smith@university.edu,2.24,Weather Studies,25,72429,94,Student Priya Smith asked about switching to Weather Studies; follow up by email priya.smith@university.edu.
+STU-2026-00022,Diego Chen,diego.chen@university.edu,3.85,Clockmaking,19,87070,76,Diego Chen requested accommodation; see adviser.
+STU-2026-00024,Kenji Silva,kenji.silva@university.edu,2.98,Map Arts,21,68528,100,Student Kenji Silva asked about switching to Map Arts; follow up by email kenji.silva@university.edu.
+STU-2026-00028,Noah Smith,noah.smith@university.edu,3.60,Clockmaking,24,36538,64,Student Noah Smith asked about switching to Clockmaking; follow up by email noah.smith@university.edu.
+STU-2026-00027,Ava Okafor,ava.okafor@university.edu,2.70,Clockmaking,25,13354,90,Student Ava Okafor asked about switching to Clockmaking; follow up by email ava.okafor@university.edu.
+STU-2026-00028,Noah Smith,noah.smith@university.edu,3.80,Lighthouse Engineering,20,21142,66,Noah Smith will intern next term; contact noah.smith@university.edu.
+STU-2026-00019,Kenji Chen,kenji.chen@university.edu,3.67,Orchard Management,19,53704,88,No concerns. Kenji Chen is on track in Orchard Management.
+STU-2026-00017,Omar Haddad,omar.haddad@university.edu,2.04,Weather Studies,23,57537,98,Omar Haddad requested accommodation; see adviser.
+STU-2026-00001,Zoe Chen,zoe.chen@university.edu,3.16,Orchard Management,18,44552,88,Zoe Chen will intern next term; contact zoe.chen@university.edu.
+STU-2026-00000,Ava Chen,ava.chen@university.edu,3.94,Weather Studies,24,36860,97,No concerns. Ava Chen is on track in Weather Studies.
+STU-2026-00029,Liam Okafor,liam.okafor@university.edu,2.99,Clockmaking,21,61017,97,Student Liam Okafor asked about switching to Clockmaking; follow up by email liam.okafor@university.edu.
+STU-2026-00019,Kenji Chen,kenji.chen@university.edu,2.49,Weather Studies,18,10069,66,Kenji Chen requested accommodation; see adviser.
+STU-2026-00011,Diego Kim,diego.kim@university.edu,2.39,Lighthouse Engineering,24,72505,85,Met with Diego Kim (ID STU-2026-00011); discussed GPA concerns.
+STU-2026-00001,Zoe Chen,zoe.chen@university.edu,2.20,Lighthouse Engineering,25,34572,67,Zoe Chen will intern next term; contact zoe.chen@university.edu.
+STU-2026-00008,Zoe Smith,zoe.smith@university.edu,2.12,Puzzle Design,20,19307,65,No concerns. Zoe Smith is on track in Puzzle Design.
+STU-2026-00021,Priya Chen,priya.chen@university.edu,3.49,Map Arts,23,74694,67,Priya Chen will intern next term; contact priya.chen@university.edu.
+STU-2026-00024,Kenji Silva,kenji.silva@university.edu,3.45,Orchard Management,25,15837,100,No concerns. Kenji Silva is on track in Orchard Management.
+STU-2026-00028,Noah Smith,noah.smith@university.edu,3.43,Lighthouse Engineering,25,14490,96,Met with Noah Smith (ID STU-2026-00028); discussed GPA concerns.
+STU-2026-00010,Zoe Smith,zoe.smith@university.edu,3.77,Clockmaking,22,63793,90,Zoe Smith will intern next term; contact zoe.smith@university.edu.
+STU-2026-00007,Lena Garcia,lena.garcia@university.edu,2.23,Kite Studies,20,33086,67,Lena Garcia requested accommodation; see adviser.
+STU-2026-00003,Priya Chen,priya.chen@university.edu,3.79,Tea Sciences,19,51953,94,Priya Chen will intern next term; contact priya.chen@university.edu.
+STU-2026-00003,Priya Chen,priya.chen@university.edu,2.25,Weather Studies,22,64975,64,No concerns. Priya Chen is on track in Weather Studies.
+STU-2026-00004,Noah Kim,noah.kim@university.edu,3.84,Tea Sciences,23,80824,85,No concerns. Noah Kim is on track in Tea Sciences.
+STU-2026-00007,Lena Garcia,lena.garcia@university.edu,3.36,Kite Studies,20,28732,69,Met with Lena Garcia (ID STU-2026-00007); discussed GPA concerns.
+STU-2026-00014,Mia Garcia,mia.garcia@university.edu,3.67,Tea Sciences,24,99272,66,No concerns. Mia Garcia is on track in Tea Sciences.
+STU-2026-00022,Diego Chen,diego.chen@university.edu,3.25,Clockmaking,19,97280,60,Met with Diego Chen (ID STU-2026-00022); discussed GPA concerns.
+STU-2026-00022,Diego Chen,diego.chen@university.edu,3.78,Lighthouse Engineering,18,95463,72,No concerns. Diego Chen is on track in Lighthouse Engineering.
+STU-2026-00015,Omar Smith,omar.smith@university.edu,3.15,Map Arts,19,75349,60,Student Omar Smith asked about switching to Map Arts; follow up by email omar.smith@university.edu.
+STU-2026-00013,Noah Chen,noah.chen@university.edu,2.35,Map Arts,18,94754,93,Student Noah Chen asked about switching to Map Arts; follow up by email noah.chen@university.edu.
+STU-2026-00010,Zoe Smith,zoe.smith@university.edu,2.71,Map Arts,25,82416,99,Zoe Smith requested accommodation; see adviser.
+STU-2026-00013,Noah Chen,noah.chen@university.edu,2.15,Map Arts,18,36196,74,Student Noah Chen asked about switching to Map Arts; follow up by email noah.chen@university.edu.
+STU-2026-00002,Liam Chen,liam.chen@university.edu,2.43,Puzzle Design,25,95860,70,No concerns. Liam Chen is on track in Puzzle Design.
+STU-2026-00003,Priya Chen,priya.chen@university.edu,3.60,Clockmaking,18,35652,67,Priya Chen will intern next term; contact priya.chen@university.edu.
+STU-2026-00004,Noah Kim,noah.kim@university.edu,3.25,Clockmaking,25,85867,76,No concerns. Noah Kim is on track in Clockmaking.
+STU-2026-00014,Mia Garcia,mia.garcia@university.edu,3.71,Weather Studies,19,14023,70,No concerns. Mia Garcia is on track in Weather Studies.
+STU-2026-00025,Noah Chen,noah.chen@university.edu,3.38,Lighthouse Engineering,20,10256,70,Met with Noah Chen (ID STU-2026-00025); discussed GPA concerns.
+STU-2026-00029,Liam Okafor,liam.okafor@university.edu,2.23,Clockmaking,23,52303,99,Liam Okafor requested accommodation; see adviser.
+STU-2026-00022,Diego Chen,diego.chen@university.edu,3.04,Puzzle Design,21,86733,60,Student Diego Chen asked about switching to Puzzle Design; follow up by email diego.chen@university.edu.
+STU-2026-00028,Noah Smith,noah.smith@university.edu,3.27,Map Arts,21,23172,68,Noah Smith requested accommodation; see adviser.
+STU-2026-00027,Ava Okafor,ava.okafor@university.edu,2.31,Clockmaking,25,61530,91,Ava Okafor requested accommodation; see adviser.
+STU-2026-00016,Lena Smith,lena.smith@university.edu,2.12,Lighthouse Engineering,19,38019,93,No concerns. Lena Smith is on track in Lighthouse Engineering.
+STU-2026-00027,Ava Okafor,ava.okafor@university.edu,3.08,Weather Studies,22,27224,96,Student Ava Okafor asked about switching to Weather Studies; follow up by email ava.okafor@university.edu.
+STU-2026-00007,Lena Garcia,lena.garcia@university.edu,3.76,Puzzle Design,18,58364,95,Lena Garcia requested accommodation; see adviser.
