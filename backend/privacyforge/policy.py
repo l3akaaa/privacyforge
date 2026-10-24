@@ -51,10 +51,35 @@ def _rule(mt: str, val: str, op: Operator, **params) -> PolicyRule:
 
 
 PRESETS: dict[str, Policy] = {
+    "recommended": Policy(
+        name="recommended",
+        rules=[
+            # Identifiers -> secure tokens (reversible only via the vault).
+            _rule("entity", "STUDENT_ID", "tokenize"),
+            _rule("entity", "RECORD_ID", "tokenize"),
+            _rule("entity", "POSSIBLE_IDENTIFIER", "tokenize"),
+            _rule("entity", "ACCOUNT_NUMBER", "tokenize"),
+            # Direct identifiers -> removed.
+            _rule("category", "pii", "redact"),
+            # Sensitive -> removed.
+            _rule("category", "sensitive", "redact"),
+            # Quasi-identifiers -> blurred (age ranges, year-only dates, zip prefix).
+            _rule("category", "quasi", "generalize"),
+        ],
+        default_operator="redact",
+        disclaimer=(
+            "Recommended safe defaults: identifiers are tokenized, direct and "
+            "sensitive values are removed, and quasi-identifiers are generalized. "
+            "This is a starting configuration, not a legal-compliance certification. "
+            "Always review the verification report before trusting an export."
+        ),
+    ),
     "academic_research": Policy(
         name="academic_research",
         rules=[
             _rule("entity", "STUDENT_ID", "tokenize"),
+            _rule("entity", "RECORD_ID", "tokenize"),
+            _rule("entity", "POSSIBLE_IDENTIFIER", "tokenize"),
             _rule("entity", "EMAIL", "redact"),
             _rule("entity", "PERSON", "synthetic"),
             _rule("entity", "DATE_OF_BIRTH", "generalize", mode="year"),
@@ -66,6 +91,8 @@ PRESETS: dict[str, Policy] = {
         name="student_records",
         rules=[
             _rule("entity", "STUDENT_ID", "tokenize"),
+            _rule("entity", "RECORD_ID", "tokenize"),
+            _rule("entity", "POSSIBLE_IDENTIFIER", "tokenize"),
             _rule("entity", "EMAIL", "redact"),
             _rule("entity", "PHONE", "redact"),
             _rule("entity", "PERSON", "redact"),

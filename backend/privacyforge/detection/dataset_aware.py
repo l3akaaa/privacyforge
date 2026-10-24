@@ -94,6 +94,13 @@ class DatasetAwareDetector:
         else:
             if cardinality >= 0.9 and shape:
                 score = min(0.9, score + 0.15)
+            # A RECORD_ID / *_id column that is (near-)unique is a real row key,
+            # not a vague quasi-identifier: promote it to PII so policies
+            # tokenize it instead of weakly generalizing it.
+            if entity_type == "RECORD_ID" and cardinality >= 0.9:
+                category = Category.PII
+                review = False
+                score = max(score, 0.85)
 
         return [
             Finding(
