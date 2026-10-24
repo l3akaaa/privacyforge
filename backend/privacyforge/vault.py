@@ -85,7 +85,19 @@ class TokenVault:
         try:
             data = aes.decrypt(nonce, ct, b"pf-vault")
         except Exception as exc:
-            raise VaultError("Vault could not be decrypted (wrong key or tampered).") from exc
+            # Strict by default: a decryption failure can mean tampering, so we
+            # refuse. For LOCAL DEV ONLY, PRIVACYFORGE_VAULT_RESET=1 lets a vault
+            # locked with a now-different key start fresh instead of blocking the
+            # whole workflow. Never enable this where the vault holds real,
+            # irreplaceable mappings -- it discards them.
+            if os.environ.get("PRIVACYFORGE_VAULT_RESET") == "1":
+                return {"by_hmac": {}, "tokens": {}}
+            raise VaultError(
+                "Vault could not be decrypted. This usually means the master key "
+                "changed since it was created, or the file was altered. If this is "
+                "a local test vault with no data you need, set "
+                "PRIVACYFORGE_VAULT_RESET=1 to start fresh."
+            ) from exc
         return json.loads(data.decode("utf-8"))
 
     def _save(self) -> None:

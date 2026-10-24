@@ -57,3 +57,25 @@ def test_delete_removes_mappings(tmp_path):
     v.tokenize("X")
     v.delete()
     assert not (tmp_path / "p1.vault").exists()
+
+
+def test_wrong_key_refuses_by_default(tmp_path, monkeypatch):
+    # Create a vault with one key, then reopen with a different key -> refuse.
+    monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "key-A")
+    v = TokenVault("p1", tmp_path)
+    v.tokenize("VALUE")
+    monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "key-B")
+    import pytest as _pytest
+    with _pytest.raises(VaultError):
+        TokenVault("p1", tmp_path)
+
+
+def test_wrong_key_resets_when_flag_set(tmp_path, monkeypatch):
+    monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "key-A")
+    v = TokenVault("p1", tmp_path)
+    v.tokenize("VALUE")
+    monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "key-B")
+    monkeypatch.setenv("PRIVACYFORGE_VAULT_RESET", "1")
+    v2 = TokenVault("p1", tmp_path)  # should start fresh, not raise
+    # Fresh vault: a new tokenize works.
+    assert v2.tokenize("NEW").startswith("TOK_")
