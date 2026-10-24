@@ -34,9 +34,24 @@ Implemented and tested (43 passing tests):
   summaries, changed fields.
 - **FastAPI** backend with versioned, typed endpoints.
 
-Partial / planned: a Next.js frontend (API is ready for it); the NLP layer ships
-as an optional install. See [`docs/ROADMAP.md`](docs/ROADMAP.md) and the specs in
-`.kiro/specs/privacyforge-mvp/`.
+Partial / planned: the Next.js frontend is **implemented** (7 pages wired to the
+API); the NLP layer ships as an optional install. See [`docs/ROADMAP.md`](docs/ROADMAP.md)
+and the specs in `.kiro/specs/privacyforge-mvp/`.
+
+## Run the web app (frontend)
+
+The backend must be running first (see above). Then:
+
+```bash
+cd frontend
+npm install
+npm run dev           # http://localhost:3000
+```
+
+The frontend calls the backend at `http://127.0.0.1:8000/api/v1` by default
+(override with `NEXT_PUBLIC_API_BASE`). Walk the seven steps in the top nav:
+Dashboard → Upload → Detection Review → Policy Editor → Before/After →
+Verification → Export. All results come from the real backend — no mock data.
 
 ## Quick start (backend)
 

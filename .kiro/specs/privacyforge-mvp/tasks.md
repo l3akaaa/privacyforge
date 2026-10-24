@@ -55,13 +55,13 @@ Each task lists the requirement(s) it satisfies. Order respects dependencies.
 - [x] M6.3 Masked previews; vault-dir config; size limits at the edge.  (R8)
 - [x] M6.4 API integration tests.  (standards)
 
-## Milestone 7 -- Frontend  (PLANNED -- API ready)
-- [ ] M7.1 Dashboard + Upload Workspace.  (R7.1)
-- [ ] M7.2 Detection Review (highlights, categories, explanations, correct/add).  (R7.2)
-- [ ] M7.3 Policy Editor (per entity/column, presets + disclaimer).  (R3.3, R7.1)
-- [ ] M7.4 Before/After Preview.  (R7.1)
-- [ ] M7.5 Verification Report + Export pages.  (R7.1)
-- [ ] M7.6 Accessibility pass.  (R7.3)
+## Milestone 7 -- Frontend  (Implemented, wired to live API; build passes)
+- [x] M7.1 Dashboard + Upload Workspace.  (R7.1)
+- [x] M7.2 Detection Review (highlights, categories, explanations, keep/remove).  (R7.2)
+- [x] M7.3 Policy Editor (per entity/column, presets + disclaimer).  (R3.3, R7.1)
+- [x] M7.4 Before/After Preview.  (R7.1)
+- [x] M7.5 Verification Report + Export pages.  (R7.1)
+- [x] M7.6 Accessibility pass (skip link, labels, focus rings, confidence bands).  (R7.3)
 
 ## Milestone 8 -- Benchmark, data, docs
 - [x] M8.1 Synthetic university dataset (data/sample_university.csv).  (R9.1)

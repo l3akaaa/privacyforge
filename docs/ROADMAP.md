@@ -21,7 +21,7 @@ Honest status. Implemented = working + tested. Partial = scaffolded. Planned = n
 | FastAPI backend (versioned, typed) | Implemented |
 | Automated tests (unit + API + e2e + benchmark) | Implemented (43 tests) |
 | Synthetic university dataset | Implemented |
-| **Next.js frontend (7 pages)** | **Planned — API contracts ready** |
+| **Next.js frontend (7 pages)** | **Implemented — wired to the live API** |
 
 ## Phase 2 — Expanded document support (planned)
 
