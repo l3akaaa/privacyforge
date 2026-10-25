@@ -16,6 +16,7 @@ dist/
 
 # PrivacyForge sensitive artifacts -- NEVER commit
 vault/
+state/
 *.vault
 *.key
 secrets.env

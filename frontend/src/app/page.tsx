@@ -2,20 +2,40 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { api } from "@/lib/api";
-import { getSession } from "@/lib/session";
+import { getSession, clearSession } from "@/lib/session";
 import { Card } from "@/components/ui";
 
 export default function Dashboard() {
   const [health, setHealth] = useState<{ version: string; nlp_available: boolean } | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [session, setSession] = useState<ReturnType<typeof getSession>>({});
+  const [checking, setChecking] = useState(true);
+  const [staleCleared, setStaleCleared] = useState(false);
 
   useEffect(() => {
-    setSession(getSession());
+    const s = getSession();
+    setSession(s);
     api
       .health()
       .then((h) => setHealth(h))
       .catch(() => setErr("Backend not reachable. Start it: uvicorn privacyforge.api:app"));
+
+    // If the browser remembers a project, confirm the backend still has it.
+    // A backend restart can drop it; without this check the page dead-ends on
+    // "Continue" and never shows the upload link.
+    if (s.projectId) {
+      api
+        .getProject(s.projectId)
+        .then(() => setChecking(false))
+        .catch(() => {
+          clearSession();
+          setSession({});
+          setStaleCleared(true);
+          setChecking(false);
+        });
+    } else {
+      setChecking(false);
+    }
   }, []);
 
   return (
@@ -50,7 +70,9 @@ export default function Dashboard() {
       </Card>
 
       <Card title="Current project">
-        {session.projectId ? (
+        {checking ? (
+          <p className="text-sm text-slate-500">Checking…</p>
+        ) : session.projectId ? (
           <div className="text-sm">
             <p>
               <strong>{session.projectName}</strong> ({session.projectId})
@@ -61,10 +83,18 @@ export default function Dashboard() {
             </Link>
           </div>
         ) : (
-          <p className="text-sm text-slate-600">
-            No active project.{" "}
-            <Link href="/upload">Start by uploading a dataset →</Link>
-          </p>
+          <div className="text-sm text-slate-600">
+            {staleCleared && (
+              <p className="mb-1 text-amber-700">
+                Your previous project was cleared (the backend restarted and no
+                longer has it). Start a new one below.
+              </p>
+            )}
+            <p>
+              No active project.{" "}
+              <Link href="/upload">Start by uploading a dataset →</Link>
+            </p>
+          </div>
         )}
       </Card>
 

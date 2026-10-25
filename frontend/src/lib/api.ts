@@ -66,6 +66,10 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ name }),
     }),
+  getProject: (projectId: string) =>
+    req<{ project_id: string; name: string; files: { file_id: string; filename: string }[] }>(
+      `/projects/${projectId}`,
+    ),
   uploadFile: async (projectId: string, file: File) => {
     const form = new FormData();
     form.append("file", file);

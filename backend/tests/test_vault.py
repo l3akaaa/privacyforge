@@ -75,7 +75,35 @@ def test_wrong_key_resets_when_flag_set(tmp_path, monkeypatch):
     v = TokenVault("p1", tmp_path)
     v.tokenize("VALUE")
     monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "key-B")
-    monkeypatch.setenv("PRIVACYFORGE_VAULT_RESET", "1")
+    monkeypatch.setenv("PRIVACYFORGE_VAULT_RESET", " 1 ")
     v2 = TokenVault("p1", tmp_path)  # should start fresh, not raise
     # Fresh vault: a new tokenize works.
     assert v2.tokenize("NEW").startswith("TOK_")
+
+
+
+def test_cached_vault_flushes_once(tmp_path, monkeypatch):
+    vault = TokenVault("cached", tmp_path, autosave=False)
+    save_calls = 0
+    original_save = vault._save
+
+    def counted_save():
+        nonlocal save_calls
+        save_calls += 1
+        original_save()
+
+    monkeypatch.setattr(vault, "_save", counted_save)
+    first = vault.tokenize("VALUE-1")
+    vault.tokenize("VALUE-2")
+    vault.tokenize("VALUE-3")
+    assert save_calls == 0
+
+    vault.flush()
+    assert save_calls == 1
+    assert TokenVault("cached", tmp_path).tokenize("VALUE-1") == first
+
+
+def test_flush_without_changes_does_not_write(tmp_path, monkeypatch):
+    vault = TokenVault("clean", tmp_path, autosave=False)
+    monkeypatch.setattr(vault, "_save", lambda: pytest.fail("unexpected save"))
+    vault.flush()

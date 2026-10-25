@@ -55,12 +55,20 @@ def _derive(master: bytes, salt: bytes, info: bytes, length: int = 32) -> bytes:
 class TokenVault:
     """One vault per project. Keys are isolated across projects by salt."""
 
-    def __init__(self, project_id: str, vault_dir: str | os.PathLike[str]) -> None:
+    def __init__(
+        self,
+        project_id: str,
+        vault_dir: str | os.PathLike[str],
+        *,
+        autosave: bool = True,
+    ) -> None:
         self.project_id = project_id
         self.dir = Path(vault_dir)
         self.dir.mkdir(parents=True, exist_ok=True)
         self.path = self.dir / f"{project_id}.vault"
         self.salt_path = self.dir / f"{project_id}.salt"
+        self._autosave = autosave
+        self._dirty = False
 
         master = _master_key()
         if self.salt_path.exists():
@@ -90,7 +98,7 @@ class TokenVault:
             # locked with a now-different key start fresh instead of blocking the
             # whole workflow. Never enable this where the vault holds real,
             # irreplaceable mappings -- it discards them.
-            if os.environ.get("PRIVACYFORGE_VAULT_RESET") == "1":
+            if os.environ.get("PRIVACYFORGE_VAULT_RESET", "").strip() == "1":
                 return {"by_hmac": {}, "tokens": {}}
             raise VaultError(
                 "Vault could not be decrypted. This usually means the master key "
@@ -107,6 +115,13 @@ class TokenVault:
         tmp = self.path.with_suffix(".tmp")
         tmp.write_bytes(nonce + ct)
         tmp.replace(self.path)
+
+    def flush(self) -> None:
+        """Persist cached mappings once, if anything changed."""
+        if not self._dirty:
+            return
+        self._save()
+        self._dirty = False
 
     # ---- tokenization ---------------------------------------------------
 
@@ -132,7 +147,9 @@ class TokenVault:
         ct = aes.encrypt(nonce, original.encode("utf-8"), b"pf-val")
         self._map["by_hmac"][h] = tok
         self._map["tokens"][tok] = base64.b64encode(nonce + ct).decode()
-        self._save()
+        self._dirty = True
+        if self._autosave:
+            self.flush()
         return tok
 
     def authorization_secret(self) -> str:
