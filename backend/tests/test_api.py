@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 def client(monkeypatch, tmp_path):
     monkeypatch.setenv("PRIVACYFORGE_MASTER_KEY", "test-master-key")
     monkeypatch.setenv("PRIVACYFORGE_VAULT_DIR", str(tmp_path / "vault"))
+    monkeypatch.setenv("PRIVACYFORGE_STATE_DIR", str(tmp_path / "state"))
     import importlib
     import privacyforge.api as api
     importlib.reload(api)
@@ -73,3 +74,27 @@ def test_detokenize_requires_auth(client):
     bad = client.post(f"/api/v1/projects/{pid}/detokenize",
                       json={"tokens": [token], "authorization": "wrong"})
     assert bad.status_code == 403
+
+
+def test_get_project_404_when_missing(client):
+    r = client.get("/api/v1/projects/proj_does_not_exist")
+    assert r.status_code == 404
+    assert r.json()["detail"]["error_code"] == "not_found"
+
+
+def test_project_survives_store_reload(client, tmp_path):
+    # Create a project and upload a file.
+    pid = client.post("/api/v1/projects", json={"name": "persist me"}).json()["project_id"]
+    csv = b"student_id,email\nSTU-1,a@u.edu\n"
+    up = client.post(f"/api/v1/projects/{pid}/files",
+                     files={"file": ("d.csv", csv, "text/csv")})
+    fid = up.json()["file_id"]
+
+    # Simulate a backend restart: build a fresh Store against the same state dir.
+    from privacyforge.store import Store
+    reloaded = Store(vault_dir=str(tmp_path / "vault"), state_dir=str(tmp_path / "state"))
+    proj = reloaded.get(pid)
+    assert proj is not None
+    assert proj.name == "persist me"
+    assert fid in proj.files
+    assert proj.files[fid].dataset is not None

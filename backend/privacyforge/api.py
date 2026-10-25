@@ -89,6 +89,18 @@ def create_project(body: CreateProject) -> dict[str, str]:
     return {"project_id": p.project_id, "name": p.name}
 
 
+@app.get("/api/v1/projects/{project_id}")
+def get_project(project_id: str) -> dict[str, Any]:
+    proj = store.get(project_id)
+    if not proj:
+        raise HTTPException(404, detail={"error_code": "not_found", "message": "Project not found."})
+    files = [
+        {"file_id": fe.file_id, "filename": fe.filename}
+        for fe in proj.files.values()
+    ]
+    return {"project_id": proj.project_id, "name": proj.name, "files": files}
+
+
 @app.post("/api/v1/projects/{project_id}/files")
 async def upload_file(project_id: str, file: UploadFile = File(...)) -> dict[str, Any]:
     proj = store.get(project_id)
@@ -114,6 +126,7 @@ async def upload_file(project_id: str, file: UploadFile = File(...)) -> dict[str
         schema = {"kind": "txt", "length": len(parsed.text)}
         preview = parsed.text[:500]
     proj.files[fid] = entry
+    store.save()
     return {"file_id": fid, "schema": schema, "preview": preview, "warnings": warnings}
 
 
@@ -136,6 +149,7 @@ def detect(project_id: str, body: dict) -> dict[str, Any]:
     else:
         findings = pipe.detect_text(entry.textdoc)  # type: ignore[arg-type]
     proj.findings[entry.file_id] = findings
+    store.save()
     by_cat: dict[str, int] = {}
     for f in findings:
         by_cat[f.category.value] = by_cat.get(f.category.value, 0) + 1
@@ -164,6 +178,7 @@ def set_policy(project_id: str, body: PolicyBody) -> dict[str, Any]:
         proj.policy = preset
     elif body.policy:
         proj.policy = body.policy
+    store.save()
     return {"policy": proj.policy.model_dump()}
 
 
@@ -175,8 +190,8 @@ def get_policy(project_id: str) -> dict[str, Any]:
     return {"policy": proj.policy.model_dump()}
 
 
-def _vault(project_id: str) -> TokenVault:
-    return TokenVault(project_id, store.vault_dir)
+def _vault(project_id: str, *, autosave: bool = True) -> TokenVault:
+    return TokenVault(project_id, store.vault_dir, autosave=autosave)
 
 
 @app.post("/api/v1/projects/{project_id}/transform")
@@ -189,7 +204,7 @@ def transform(project_id: str, body: dict) -> dict[str, Any]:
         raise HTTPException(404, detail={"error_code": "not_found", "message": "File not found."})
     findings = proj.findings.get(entry.file_id, [])
     try:
-        vault = _vault(project_id)
+        vault = _vault(project_id, autosave=False)
         t = Transformer(vault=vault, project_seed=project_id)
         if entry.dataset is not None:
             res = apply_to_dataset(entry.dataset, findings, proj.policy, t)
@@ -201,6 +216,7 @@ def transform(project_id: str, body: dict) -> dict[str, Any]:
             entry_after = res.textdoc
             preview_before = entry.textdoc.text[:500]  # type: ignore[union-attr]
             preview_after = res.textdoc.text[:500]  # type: ignore[union-attr]
+        vault.flush()
     except PrivacyForgeError as exc:
         raise _err(exc)
     proj.__dict__["_last_transform"] = (entry.file_id, entry_after, res)
